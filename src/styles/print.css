@@ -1,0 +1,83 @@
+/* Print / save-as-PDF stylesheet: plan content only, on white. */
+
+@media print {
+  @page {
+    margin: 18mm;
+  }
+
+  :root {
+    --color-page: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-pale: #ffffff;
+    --shadow-card: none;
+    --shadow-raised: none;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+    font-size: 11.5pt;
+  }
+
+  /* Hide anything that is navigation, controls or chrome. */
+  .site-header,
+  .site-footer,
+  .plan__actions,
+  .skip-link,
+  .no-print,
+  .dialog-backdrop,
+  button {
+    display: none !important;
+  }
+
+  /* Without this, the full-height flex shell can push blank pages out. */
+  .app {
+    min-height: 0;
+    display: block;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .shell {
+    max-width: none;
+    padding: 0;
+  }
+
+  .plan {
+    max-width: none;
+  }
+
+  .card,
+  .note,
+  .preview {
+    border: 1px solid #999999;
+    box-shadow: none;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .plan__priority,
+  .plan__section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .plan__section-title,
+  .plan__priority-name,
+  .plan__closing {
+    color: #000000;
+  }
+
+  .muted,
+  .detail-list dt,
+  .plan__reason {
+    color: #333333;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+}
