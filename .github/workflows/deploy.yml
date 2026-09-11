@@ -30,10 +30,10 @@ jobs:
 
       - run: npm ci
 
-      - name: Typecheck and test
+      - name: Test
         run: npm run test
 
-      - name: Build
+      - name: Typecheck and build
         run: npm run build
 
       - uses: actions/configure-pages@v5
