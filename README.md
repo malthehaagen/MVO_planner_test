@@ -22,7 +22,7 @@ npm run dev        # development server, prints a local URL
 Other scripts:
 
 ```bash
-npm run build      # typecheck, then build the site into the repository root
+npm run build      # typecheck, then build the static site into dist/
 npm run preview    # serve the built site
 npm run typecheck  # TypeScript only
 npm run test       # Vitest suite (30 tests)
@@ -30,28 +30,18 @@ npm run test       # Vitest suite (30 tests)
 
 ## Publishing (GitHub Pages)
 
-GitHub Pages serves this repository's branch root, so the built site is
-committed there. `npm run build` writes exactly two things:
+Pages is set to **GitHub Actions** as its source. `.github/workflows/deploy.yml`
+runs on every push to this branch (and on `main`, if the work lands there): it
+installs dependencies, typechecks, runs the test suite, builds, and publishes
+`dist/` to Pages. A failing test or typecheck stops the deploy.
 
-- `index.html` — the built page
-- `assets/app.js` and `assets/app.css` — the bundle, with stable names, so each
-  build replaces the previous files rather than leaving old ones behind
+Nothing built is committed — push your source changes and the site follows. You
+can also re-run it by hand from the repository's **Actions** tab
+("Build and deploy to GitHub Pages" → *Run workflow*).
 
-The page source you edit is `site/index.html`; the root `index.html` is
-generated — don't edit it by hand. After changing anything in `src/` or
-`site/`, publish with:
-
-```bash
-npm run build
-git add index.html assets && git commit -m "Rebuild site" && git push
-```
-
-The build uses relative asset paths, so it works both at a domain root and
-under a project path such as `/MVO_planner_test/`.
-
-If you would rather not commit build output, switch **Settings → Pages →
-Source** to *GitHub Actions* and a workflow can build and deploy on each push
-instead — say the word and I'll add one.
+Locally, `npm run build` produces the same static bundle in `dist/`, and
+`npm run preview` serves it. The build uses relative asset paths, so it works
+both at a domain root and under a project path such as `/MVO_planner_test/`.
 
 ## Where to edit things
 
