@@ -22,14 +22,36 @@ npm run dev        # development server, prints a local URL
 Other scripts:
 
 ```bash
-npm run build      # typecheck, then produce a static site in dist/
+npm run build      # typecheck, then build the site into the repository root
 npm run preview    # serve the built site
 npm run typecheck  # TypeScript only
 npm run test       # Vitest suite (30 tests)
 ```
 
-`dist/` is a plain static bundle — any static host or `npx http-server dist`
-will serve it.
+## Publishing (GitHub Pages)
+
+GitHub Pages serves this repository's branch root, so the built site is
+committed there. `npm run build` writes exactly two things:
+
+- `index.html` — the built page
+- `assets/app.js` and `assets/app.css` — the bundle, with stable names, so each
+  build replaces the previous files rather than leaving old ones behind
+
+The page source you edit is `site/index.html`; the root `index.html` is
+generated — don't edit it by hand. After changing anything in `src/` or
+`site/`, publish with:
+
+```bash
+npm run build
+git add index.html assets && git commit -m "Rebuild site" && git push
+```
+
+The build uses relative asset paths, so it works both at a domain root and
+under a project path such as `/MVO_planner_test/`.
+
+If you would rather not commit build output, switch **Settings → Pages →
+Source** to *GitHub Actions* and a workflow can build and deploy on each push
+instead — say the word and I'll add one.
 
 ## Where to edit things
 

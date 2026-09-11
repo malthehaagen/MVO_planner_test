@@ -5,3 +5,6 @@ dist-ssr
 .DS_Store
 .vite
 coverage
+
+# TypeScript incremental build state
+*.tsbuildinfo
